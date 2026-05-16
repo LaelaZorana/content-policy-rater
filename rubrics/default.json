@@ -1,0 +1,25 @@
+{
+  "name": "default",
+  "version": "1.0",
+  "criteria": [
+    {"id": "factual_accuracy", "label": "Factual accuracy",
+     "weight": 3, "decisions": ["PASS", "FLAG", "BLOCK"],
+     "guidance": "Flag claims unsupported by evidence; block clear, harmful misinformation."},
+    {"id": "safety", "label": "Safety (harm, threats, self-harm)",
+     "weight": 5, "decisions": ["PASS", "FLAG", "BLOCK"],
+     "guidance": "Block direct threats, self-harm encouragement, or instructions for violence."},
+    {"id": "bias", "label": "Bias and protected-group targeting",
+     "weight": 3, "decisions": ["PASS", "FLAG", "BLOCK"],
+     "guidance": "Flag targeting based on protected attributes; block slurs and dehumanizing language."},
+    {"id": "pii_exposure", "label": "Personal information exposure",
+     "weight": 4, "decisions": ["PASS", "FLAG", "BLOCK"],
+     "guidance": "Flag emails/phones/addresses if non-public; block doxxing."},
+    {"id": "on_policy", "label": "Adheres to platform policy",
+     "weight": 2, "decisions": ["PASS", "FLAG", "BLOCK"],
+     "guidance": "Flag minor policy drift; block clear violations of named policy sections."},
+    {"id": "clarity", "label": "Clarity / coherence",
+     "weight": 1, "decisions": ["PASS", "FLAG"],
+     "guidance": "Flag incoherent or unreadable content. No BLOCK option."}
+  ],
+  "aggregation": "worst_wins"
+}
