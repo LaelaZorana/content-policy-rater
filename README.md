@@ -82,3 +82,7 @@ examples/
 ## License
 
 MIT.
+
+---
+
+**Links:** [GitHub](https://github.com/LaelaZorana) · [HuggingFace](https://huggingface.co/LaelaZ) · [Kaggle](https://www.kaggle.com/laelazorana)
