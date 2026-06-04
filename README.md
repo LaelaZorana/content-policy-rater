@@ -1,13 +1,13 @@
 # content-policy-rater
 
-A rubric-based **content moderation reviewer**. Give it a piece of text and a JSON policy rubric, and it walks you through scoring the text against each policy criterion — safety, accuracy, on-policy, bias, PII, whatever you've defined — and produces a structured decision with per-criterion reasoning.
+A rubric-based **content moderation reviewer**. Give it a piece of text and a JSON policy rubric, and it walks you through scoring the text against each policy criterion you've defined (safety, accuracy, on-policy, bias, PII, whatever), so you end up with a structured decision and per-criterion reasoning.
 
 I built it because I was doing some moderation-style content review and getting tired of writing the same boilerplate ("✗ The claim that X is false because…") over and over for every piece. A structured rubric forces the categories to be explicit and makes my decisions auditable later.
 
 ## What it does
 
-- Loads a **policy rubric** — a JSON file describing the criteria you want to check (each with a label, weight, allowed decisions, and guidance text)
-- Loads a **content batch** — a JSONL file of `{"id": "...", "text": "..."}` records
+- Loads a **policy rubric**: a JSON file describing the criteria you want to check (each with a label, weight, allowed decisions, and guidance text)
+- Loads a **content batch**: a JSONL file of `{"id": "...", "text": "..."}` records
 - Walks you through each item interactively, prompting per criterion for:
   - **Decision:** `PASS`, `FLAG`, or `BLOCK`
   - **Reasoning:** one short line of *why*
@@ -61,7 +61,7 @@ python -m policy_rater agreement reviewer_1.jsonl reviewer_2.jsonl
 
 Every moderation operation I've seen starts as a Google Doc with rules people loosely apply, then drifts as reviewers individually internalise the criteria differently. A rubric file pinned in source means everyone is literally scoring on the same axes, the same weights, the same allowed decisions. When the policy changes, the rubric changes and you can diff it.
 
-The `agreement` command exists for the same reason — if two reviewers are seeing the same content very differently, you want to surface that quickly. Inter-rater agreement per criterion is more useful than overall, because it tells you *which axis* people disagree on. "We agree on safety but disagree on factual accuracy" is actionable; "we disagree" isn't.
+The `agreement` command exists for the same reason: if two reviewers are seeing the same content very differently, you want to surface that quickly. Inter-rater agreement per criterion is more useful than overall, because it tells you *which axis* people disagree on. "We agree on safety but disagree on factual accuracy" is actionable; "we disagree" isn't.
 
 ## Project layout
 
