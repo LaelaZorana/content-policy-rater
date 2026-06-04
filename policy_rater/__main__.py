@@ -35,7 +35,7 @@ def cmd_review(args) -> int:
     already = set()
     if args.out.exists():
         already = {d["item_id"] for d in _read_jsonl(args.out)}
-        print(f"Resuming — {len(already)} items already reviewed.")
+        print(f"Resuming. {len(already)} items already reviewed.")
 
     n = 0
     try:
