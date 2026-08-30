@@ -84,12 +84,22 @@ def main(argv=None) -> int:
     pa.add_argument("decisions_b", type=Path)
 
     args = p.parse_args(argv)
-    if args.cmd == "review":
-        return cmd_review(args)
-    if args.cmd == "summary":
-        return cmd_summary(args)
-    if args.cmd == "agreement":
-        return cmd_agreement(args)
+    try:
+        if args.cmd == "review":
+            return cmd_review(args)
+        if args.cmd == "summary":
+            return cmd_summary(args)
+        if args.cmd == "agreement":
+            return cmd_agreement(args)
+    except FileNotFoundError as e:
+        print(f"error: {e.filename or e} does not exist", file=sys.stderr)
+        return 2
+    except (IsADirectoryError, PermissionError) as e:
+        print(f"error: cannot read {e.filename or e}", file=sys.stderr)
+        return 2
+    except ValueError as e:
+        print(f"error: {e}", file=sys.stderr)
+        return 2
     return 1
 
 

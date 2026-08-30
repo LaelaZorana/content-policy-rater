@@ -47,3 +47,17 @@ def test_criterion_missing_decisions_raises():
     bad = {**VALID, "criteria": [{"id": "a", "label": "A", "decisions": []}]}
     with pytest.raises(ValueError, match="no decisions"):
         rubric_mod.validate_rubric(bad)
+
+
+def test_cli_missing_rubric_exits_cleanly(tmp_path, capsys):
+    from policy_rater.__main__ import main
+    code = main([
+        "review", str(tmp_path / "batch.jsonl"),
+        "--rubric", str(tmp_path / "nope.json"),
+        "--rater", "laela",
+        "--out", str(tmp_path / "out.jsonl"),
+    ])
+    captured = capsys.readouterr()
+    assert code == 2
+    assert "does not exist" in captured.err
+    assert "Traceback" not in captured.err
